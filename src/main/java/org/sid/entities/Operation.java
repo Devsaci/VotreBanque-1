@@ -29,9 +29,8 @@ public abstract class Operation implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Operation(long numero, Date dateOperation, double montant, org.sid.entities.Compte compte) {
+	public Operation(Date dateOperation, double montant, Compte compte) {
 		super();
-		this.numero = numero;
 		this.dateOperation = dateOperation;
 		this.montant = montant;
 		this.compte = compte;
