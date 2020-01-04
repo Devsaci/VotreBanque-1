@@ -12,6 +12,7 @@ import org.sid.entities.CompteCourant;
 import org.sid.entities.CompteEpargne;
 import org.sid.entities.Retrait;
 import org.sid.entities.Verssement;
+import org.sid.metier.IBanqueMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,7 +28,8 @@ public class VotreBanque1Application implements CommandLineRunner{
 	private CompteRepository compteRepository;
 	@Autowired
 	private Operationrepository operationRepository;
-	
+	@Autowired
+	private IBanqueMetier banqueMetier;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(VotreBanque1Application.class, args);
@@ -55,7 +57,13 @@ public class VotreBanque1Application implements CommandLineRunner{
 		operationRepository.save(new Retrait(new Date(),3000,cp2));
 		
 		
+		/*
+		 * 
+		 *Test couche Metier  
+		 *  
+		 *  */ 
 		
+		banqueMetier.verser("c1", 111111111);
 		
 		
 	}
