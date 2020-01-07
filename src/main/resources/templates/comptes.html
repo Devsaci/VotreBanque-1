@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+layout:decorate="template1">
 <head>
 <meta charset="utf-8"/>
-<title>Votre Banque</title>
+<title>Votre Banque SACI</title>
+
 </head>
 <body>
-<h3>TEST</h3>
+<div layout:fragment="content">
+
+<div class="col-md-6">Premiere COl
+	<div class="panel panel-primary">
+			
+		<div class="panel-heading"> Consultation d'un compte</div>
+				
+		<div class="panel-body">				
+			<form th:action="@{/consultercompte}" methode="get">
+				<div>
+					<label> Code Compte: </label>
+					<input type="text" name="codeCompte" th:value="${codeCompte}"/>
+					<button type="submit" class="btn btn-primary">Ok</button>
+				</div>
+			</form>
+			<div th:if="${exception}"  th:text="${exception.message}" class="text-danger"></div>
+		</div>
+				
+	</div>
+</div>
+
+
+<div class="col-md-6">Deusieme Col
+
+</div>
+</div>
+
 </body>
 </html>
