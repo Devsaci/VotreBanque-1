@@ -10,29 +10,84 @@ layout:decorate="template1">
 <body>
 <div layout:fragment="content">
 
-<div class="col-md-6">Premiere COl
-	<div class="panel panel-primary">
-			
-		<div class="panel-heading"> Consultation d'un compte</div>
-				
+<div class="col-md-6">
+Premiere COl
+
+	<div class="panel panel-primary">			
+		<div class="panel-heading"> Consultation d'un compte</div>				
 		<div class="panel-body">				
-			<form th:action="@{/consultercompte}" methode="get">
-				<div>
-					<label> Code Compte: </label>
-					<input type="text" name="codeCompte" th:value="${codeCompte}"/>
-					<button type="submit" class="btn btn-primary">Ok</button>
-				</div>
-			</form>
-			<div th:if="${exception}"  th:text="${exception.message}" class="text-danger"></div>
+		<form th:action="@{/consulterCompte}" method="get">
+			<div>
+				<label> Code Compte: </label>
+				<input type="text" name="codeCompte" th:value="${codeCompte}"/>
+				<button type="submit" class="btn btn-primary">Ok</button>
+			</div>
+		</form>
+			
 		</div>
-				
 	</div>
+		
+			<div class="panel panel-primary" th:if="${compte}">			
+		<div class="panel-heading"> Information sur le compte</div>				
+		<div class="panel-body">
+		
+	 <div>
+			<label> Code: </label>
+			<label th:text="${compte.code}"></label>
+		</div>						
+		<div>
+			<label> Solde: </label>
+			<label th:text="${compte.Solde}"></label>
+		</div>
+		<div>
+			<label> Date de creation: </label>
+			<label th:text="${compte.dateCreation}"></label>
+		</div>
+		<div>
+			<label> Type: </label>
+			<label th:text="${compte.class.simpleName}"></label>
+		</div> 
+		
+		<div th:if="${compte.class.simpleName=='CompteCourant'}">
+			<label> Decouvert: </label>
+			<label th:text="${compte..decouvert}"></label>
+		</div> 
+		
+		<div th:if="${compte.class.simpleName=='CompteEpargne'}">
+			<label> Taux: </label>
+			<label th:text="${compte.taux}"></label>
+		</div>	
+				
+		</div>
+	</div>
+		
+		
+		
+		
 </div>
 
 
-<div class="col-md-6">Deusieme Col
+<div class="col-md-6">
+Deusieme Col
+<div class="panel panel-primary" th:if="${compte}">			
+		<div class="panel-heading"> Operation sur le compte</div>				
+		<div class="panel-body">				
+			
+			
+		</div>
+	</div>
+
+<div class="panel panel-primary" th:if="${compte}">			
+		<div class="panel-heading"> Liste des operation</div>				
+		<div class="panel-body">				
+			
+			
+		</div>
+	</div>
+
 
 </div>
+
 </div>
 
 </body>

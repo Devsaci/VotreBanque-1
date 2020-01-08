@@ -1,6 +1,5 @@
 package org.sid.metier;
 
-
 import java.util.Date;
 
 import org.sid.dao.CompteRepository;
@@ -17,30 +16,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
-
-
 @Service
-/* 
- * @Service Annotation reserver au objet de la couche metier
- * Spring instantie cette classe au demarage
- */  
+/*
+ * @Service Annotation reserver au objet de la couche metier Spring instantie
+ * cette classe au demarage
+ */
 @Transactional
-/* Spring gere les transaction de la couche metrier
+/*
+ * Spring gere les transaction de la couche metrier
+ * 
  * @Transactional : Toutes les methodes sont transactionnelle
  */
-public class BanqueMetierImpl implements IBanqueMetier{
+public class BanqueMetierImpl implements IBanqueMetier {
 	@Autowired
 	private CompteRepository compteRepository;
 	@Autowired
 	private Operationrepository operationrepository;
-	
-	
+
 	@Override
 	public Compte consulterCompte(String codeCpte) {
-		
-		Compte cp =compteRepository.findById(codeCpte).orElse(null);
+		Compte cp = compteRepository.findById(codeCpte).orElse(null);
 		if (cp == null) {
 			throw new RuntimeException("compte introuvable");
 		}
@@ -48,17 +43,17 @@ public class BanqueMetierImpl implements IBanqueMetier{
 	}
 
 	@Override
-	public void verser(String codeCpte, double montant) {
-		Compte cp=consulterCompte(codeCpte);
-		Verssement v  = new Verssement(new Date(), montant, cp);
+	public void verser(String codeCompte, double montant) {
+		Compte cp = consulterCompte(codeCompte);
+		Verssement v = new Verssement(new Date(), montant, cp);
 		operationrepository.save(v);
 		cp.setSolde(cp.getSolde() + montant);
 		compteRepository.save(cp);
 	}
 
 	@Override
-	public void retirer(String codeCpte, double montant) {
-		Compte cp = consulterCompte(codeCpte);
+	public void retirer(String codeCompte, double montant) {
+		Compte cp = consulterCompte(codeCompte);
 		double facilitesCaisse = 0;
 		if (cp instanceof CompteCourant) {
 			facilitesCaisse = ((CompteCourant) cp).getDecouvert();
@@ -70,18 +65,18 @@ public class BanqueMetierImpl implements IBanqueMetier{
 		operationrepository.save(r);
 		cp.setSolde(cp.getSolde() - montant);
 		compteRepository.save(cp);
-		
+
 	}
 
 	@Override
-	public void virement(String codeCpte1, String codeCpte2, double montant) {
-		retirer(codeCpte1, montant);
-		verser(codeCpte2, montant);			
+	public void virement(String codeCompte1, String codeCompte2, double montant) {
+		retirer(codeCompte1, montant);
+		verser(codeCompte2, montant);
 	}
 
 	@Override
-	public Page<Operation> listOperation(String codeCpte, int page, int size) {
-		return operationrepository.listOperation(codeCpte, PageRequest.of(page, size));
+	public Page<Operation> listOperation(String codeCompte, int page, int size) {
+		return operationrepository.listOperation(codeCompte, PageRequest.of(page, size));
 	}
 
 }

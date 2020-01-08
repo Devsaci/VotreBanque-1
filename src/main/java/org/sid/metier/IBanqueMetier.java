@@ -13,11 +13,11 @@ public interface IBanqueMetier {
 	
 	 */
 
-	public Compte consulterCompte(String codeCpte);
-	public void verser(String codeCpte,double montant);
-	public void retirer(String codeCpte,double montant);
-	public void virement(String codeCpte1,String codeCpte2,double montant);
-	public Page<Operation> listOperation(String codeCpte, int page, int size);
+	public Compte consulterCompte(String codeCompte);
+	public void verser(String codeCompte,double montant);
+	public void retirer(String codeCompte,double montant);
+	public void virement(String codeCompte1,String codeCompte2,double montant);
+	public Page<Operation> listOperation(String codeCompte, int page, int size);
 	
 	
 	
